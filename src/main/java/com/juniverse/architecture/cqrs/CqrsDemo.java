@@ -5,11 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.logging.Logger;
+import com.juniverse.architecture.AppLogger;
 /**
  * CQRS (Command Query Responsibility Segregation) con Event Sourcing sencillo:
  * las escrituras (comandos) guardan eventos y las lecturas (consultas) usan un modelo optimizado para leer.
  */
 public final class CqrsDemo {
+    private static final Logger LOGGER = AppLogger.get(CqrsDemo.class);
+
 
     private CqrsDemo() {
     }
@@ -83,7 +87,7 @@ public final class CqrsDemo {
         commands.deposit("A-1", 100);
         commands.deposit("A-1", 50);
         commands.deposit("B-2", 30);
-        System.out.printf("Saldo A-1: $%.2f, B-2: $%.2f%n", query.balance("A-1"), query.balance("B-2"));
-        System.out.println("Eventos guardados: " + commands.eventCount());
+        LOGGER.info(String.format("Saldo A-1: $%.2f, B-2: $%.2f", query.balance("A-1"), query.balance("B-2")));
+        LOGGER.info("Eventos guardados: " + commands.eventCount());
     }
 }

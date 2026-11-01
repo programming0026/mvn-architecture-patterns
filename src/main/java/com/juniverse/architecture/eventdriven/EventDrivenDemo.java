@@ -6,11 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import java.util.logging.Logger;
+import com.juniverse.architecture.AppLogger;
 /**
  * Arquitectura orientada a eventos: los componentes se comunican publicando y consumiendo eventos
  * a través de un bus, sin conocerse entre sí.
  */
 public final class EventDrivenDemo {
+    private static final Logger LOGGER = AppLogger.get(EventDrivenDemo.class);
+
 
     private EventDrivenDemo() {
     }
@@ -48,10 +52,10 @@ public final class EventDrivenDemo {
     /** Ejecuta la demostración. */
     public static void run() {
         EventBus bus = new EventBus();
-        bus.subscribe(OrderPlaced.class, e -> System.out.println("  Facturación: factura para " + e.orderId()));
-        bus.subscribe(OrderPlaced.class, e -> System.out.printf("  Inventario: reservar artículos de %s ($%.2f)%n", e.orderId(), e.total()));
-        bus.subscribe(OrderPlaced.class, e -> System.out.println("  Correo: confirmación enviada de " + e.orderId()));
-        System.out.println("Se publica OrderPlaced:");
+        bus.subscribe(OrderPlaced.class, e -> LOGGER.info("  Facturación: factura para " + e.orderId()));
+        bus.subscribe(OrderPlaced.class, e -> LOGGER.info(String.format("  Inventario: reservar artículos de %s ($%.2f)", e.orderId(), e.total())));
+        bus.subscribe(OrderPlaced.class, e -> LOGGER.info("  Correo: confirmación enviada de " + e.orderId()));
+        LOGGER.info("Se publica OrderPlaced:");
         bus.publish(new OrderPlaced("PED-1001", 1499.90));
     }
 }

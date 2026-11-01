@@ -3,10 +3,14 @@ package com.juniverse.architecture.microkernel;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import java.util.logging.Logger;
+import com.juniverse.architecture.AppLogger;
 /**
  * Microkernel (arquitectura de plugins): un núcleo mínimo al que se agregan módulos que extienden su funcionalidad.
  */
 public final class MicrokernelDemo {
+    private static final Logger LOGGER = AppLogger.get(MicrokernelDemo.class);
+
 
     private MicrokernelDemo() {
     }
@@ -86,8 +90,8 @@ public final class MicrokernelDemo {
     /** Ejecuta la demostración. */
     public static void run() {
         Kernel kernel = new Kernel().install(new UpperPlugin()).install(new ReversePlugin());
-        System.out.println(kernel.run("mayusculas", "java universe"));
-        System.out.println(kernel.run("invertir", "java universe"));
-        System.out.println(kernel.run("traducir", "hola"));
+        LOGGER.info(kernel.run("mayusculas", "java universe"));
+        LOGGER.info(kernel.run("invertir", "java universe"));
+        LOGGER.info(kernel.run("traducir", "hola"));
     }
 }

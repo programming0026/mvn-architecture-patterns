@@ -3,11 +3,15 @@ package com.juniverse.architecture.hexagonal;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.logging.Logger;
+import com.juniverse.architecture.AppLogger;
 /**
  * Arquitectura hexagonal (puertos y adaptadores): el dominio no depende de la tecnología.
  * Los puertos son interfaces; los adaptadores (consola, base de datos en memoria...) se conectan desde fuera.
  */
 public final class HexagonalDemo {
+    private static final Logger LOGGER = AppLogger.get(HexagonalDemo.class);
+
 
     private HexagonalDemo() {
     }
@@ -106,7 +110,7 @@ public final class HexagonalDemo {
          * @param amount importe
          */
         public void deposit(String id, double amount) {
-            System.out.printf("Depósito de $%.2f en %s -> saldo $%.2f%n", amount, id, useCase.deposit(id, amount));
+            LOGGER.info(String.format("Depósito de $%.2f en %s -> saldo $%.2f", amount, id, useCase.deposit(id, amount)));
         }
     }
 

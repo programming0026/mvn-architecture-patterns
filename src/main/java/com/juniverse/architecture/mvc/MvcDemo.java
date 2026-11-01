@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import java.util.logging.Logger;
+import com.juniverse.architecture.AppLogger;
 /**
  * MVC (Modelo-Vista-Controlador): separa los datos, su presentación y la lógica que reacciona a la entrada del usuario.
  */
 public final class MvcDemo {
+    private static final Logger LOGGER = AppLogger.get(MvcDemo.class);
+
 
     private MvcDemo() {
     }
@@ -45,7 +49,7 @@ public final class MvcDemo {
          * @param value valor actual
          */
         public void render(int value) {
-            System.out.println("Contador = " + value);
+            LOGGER.info("Contador = " + value);
         }
     }
 
@@ -73,7 +77,7 @@ public final class MvcDemo {
             switch (command) {
                 case "+" -> model.add(1);
                 case "-" -> model.add(-1);
-                default -> System.out.println("Comando desconocido: " + command);
+                default -> LOGGER.info("Comando desconocido: " + command);
             }
         }
     }

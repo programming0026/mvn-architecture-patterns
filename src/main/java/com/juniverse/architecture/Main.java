@@ -9,16 +9,19 @@ import com.juniverse.architecture.pipesandfilters.PipesAndFiltersDemo;
 import com.juniverse.architecture.cqrs.CqrsDemo;
 import com.juniverse.architecture.microkernel.MicrokernelDemo;
 
+import java.util.logging.Logger;
 /**
  * Ejecuta un ejemplo de cada patrón de arquitectura de software incluido en el proyecto.
  */
 public final class Main {
+    private static final Logger LOGGER = AppLogger.get(Main.class);
+
 
     private Main() {
     }
 
     private static void demo(String name, Runnable demo) {
-        System.out.println("\n=== " + name + " ===");
+        LOGGER.info("\n=== " + name + " ===");
         demo.run();
     }
 
@@ -28,8 +31,6 @@ public final class Main {
      * @param args no se usan
      */
     public static void main(String[] args) {
-        // Salida en UTF-8 para que se vean bien los acentos en cualquier consola
-        System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
         demo("Arquitectura en capas", LayeredDemo::run);
         demo("Hexagonal (puertos y adaptadores)", HexagonalDemo::run);
         demo("Clean Architecture", CleanArchitectureDemo::run);

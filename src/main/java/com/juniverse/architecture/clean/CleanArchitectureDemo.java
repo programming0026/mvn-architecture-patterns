@@ -3,11 +3,15 @@ package com.juniverse.architecture.clean;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.logging.Logger;
+import com.juniverse.architecture.AppLogger;
 /**
  * Clean Architecture: capas concéntricas y la regla de dependencia —el código solo apunta hacia adentro—.
  * Entidades (centro) ← casos de uso ← adaptadores de interfaz ← frameworks y drivers (afuera).
  */
 public final class CleanArchitectureDemo {
+    private static final Logger LOGGER = AppLogger.get(CleanArchitectureDemo.class);
+
 
     private CleanArchitectureDemo() {
     }
@@ -110,7 +114,7 @@ public final class CleanArchitectureDemo {
         add.execute("Estudiar patrones");
         add.execute("Practicar Java 21");
         TodoPresenter presenter = new TodoPresenter();
-        gateway.all().forEach(t -> System.out.println(presenter.present(t)));
-        System.out.println(presenter.present(gateway.all().get(0).complete()));
+        gateway.all().forEach(t -> LOGGER.info(presenter.present(t)));
+        LOGGER.info(presenter.present(gateway.all().get(0).complete()));
     }
 }

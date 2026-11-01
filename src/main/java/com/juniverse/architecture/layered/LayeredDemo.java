@@ -3,10 +3,14 @@ package com.juniverse.architecture.layered;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.logging.Logger;
+import com.juniverse.architecture.AppLogger;
 /**
  * Arquitectura en capas: presentación → negocio → datos. Cada capa solo conoce a la de abajo.
  */
 public final class LayeredDemo {
+    private static final Logger LOGGER = AppLogger.get(LayeredDemo.class);
+
 
     private LayeredDemo() {
     }
@@ -93,15 +97,15 @@ public final class LayeredDemo {
         public void add(String name) {
             try {
                 service.register(name);
-                System.out.println("Registrado: " + name);
+                LOGGER.info("Registrado: " + name);
             } catch (RuntimeException e) {
-                System.out.println("Error: " + e.getMessage());
+                LOGGER.info("Error: " + e.getMessage());
             }
         }
 
         /** Imprime el catálogo. */
         public void list() {
-            System.out.println("Catálogo: " + service.catalog());
+            LOGGER.info("Catálogo: " + service.catalog());
         }
     }
 

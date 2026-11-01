@@ -3,10 +3,14 @@ package com.juniverse.architecture.pipesandfilters;
 import java.util.List;
 import java.util.function.Function;
 
+import java.util.logging.Logger;
+import com.juniverse.architecture.AppLogger;
 /**
  * Pipes and Filters: el procesamiento se divide en pasos independientes (filtros) conectados en secuencia (tuberías).
  */
 public final class PipesAndFiltersDemo {
+    private static final Logger LOGGER = AppLogger.get(PipesAndFiltersDemo.class);
+
 
     private PipesAndFiltersDemo() {
     }
@@ -51,8 +55,8 @@ public final class PipesAndFiltersDemo {
                 s -> s.replaceAll("\\s+", " "),
                 String::toLowerCase,
                 s -> s.replace("<script>", "")));
-        String entrada = "   HOLA    Mundo <script>   ";
-        System.out.println("Entrada: [" + entrada + "]");
-        System.out.println("Salida:  [" + pipeline.process(entrada) + "]");
+        String input = "   HOLA    Mundo <script>   ";
+        LOGGER.info("Entrada: [" + input + "]");
+        LOGGER.info("Salida:  [" + pipeline.process(input) + "]");
     }
 }
